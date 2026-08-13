@@ -1,3 +1,27 @@
+> ## 📌 Personal archive
+>
+> This is a personal archive of
+> **[luxroboeducation/2027-ROBOFEST-ROK-Qualifying-Website](https://github.com/luxroboeducation/2027-ROBOFEST-ROK-Qualifying-Website)**
+> — a site I built while employed at LUXROBO, for 부산광역시교육청.
+> It is **not** an independent personal project, and the upstream repository is
+> the authoritative copy.
+>
+> See **[`CONTRIBUTORS.md`](CONTRIBUTORS.md)** for who did what. Every commit in
+> this repository was authored from a shared departmental account, so GitHub
+> attributes the work to that account rather than to the individuals who did it.
+>
+> | branch | what it is |
+> | --- | --- |
+> | `main` | snapshot as of the author's last day, plus the sync workflow |
+> | `live` | tracks the upstream repository automatically, once a day |
+>
+> ---
+>
+> 개인 보관본입니다. 위 원본 저장소의 사본이며, 럭스로보 재직 중
+> 부산광역시교육청 대회를 위해 만든 사이트입니다. 개인 프로젝트가 아니고,
+> 원본 저장소가 정본입니다. 누가 무엇을 했는지는 `CONTRIBUTORS.md` 를
+> 보세요.
+
 # 2027 ROBOFEST World Championship 국내예선대회 누리집
 
 부산광역시교육청이 주최하는 **2027 ROBOFEST World Championship 대한민국 공식
