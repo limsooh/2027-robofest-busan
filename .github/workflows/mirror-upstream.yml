@@ -1,0 +1,77 @@
+# Mirror the upstream ROBOFEST site repository into this one.
+#
+# WHY THIS EXISTS
+#   This repository is a personal archive of work done on
+#   luxroboeducation/2027-ROBOFEST-ROK-Qualifying-Website. That repository is
+#   public, so this workflow reads it over plain HTTPS with no credentials and
+#   no special access — exactly what any anonymous `git clone` does.
+#
+# WHAT IT TOUCHES
+#   Upstream `main`  ->  this repository's `live` branch.
+#
+#   It deliberately does NOT write to `main`. Two reasons:
+#     1. GitHub only runs scheduled workflows from the DEFAULT branch. If the
+#        mirror overwrote `main`, the first run would delete this file and the
+#        automation would silently stop after one execution.
+#     2. `main` is the snapshot as of the author's last day. That is the thing
+#        worth preserving; `live` is for seeing what happened afterwards.
+#
+# ⚠️ GitHub disables scheduled workflows after 60 days without repository
+#    activity. The site is retired on 2026-10-16 (~9 weeks out), which is close
+#    to that limit. If the schedule stops firing, open the Actions tab and press
+#    "Run workflow" — that re-enables it. The manual trigger below always works.
+
+name: Mirror upstream
+
+on:
+  schedule:
+    # 21:00 UTC daily = 06:00 KST the following morning.
+    - cron: "0 21 * * *"
+  workflow_dispatch: {}
+
+# Only the built-in token, scoped to this repository. No personal access token,
+# no secret to rotate, nothing that outlives anyone's employment.
+permissions:
+  contents: write
+
+concurrency:
+  group: mirror-upstream
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch upstream and update the live branch
+        env:
+          UPSTREAM: https://github.com/luxroboeducation/2027-ROBOFEST-ROK-Qualifying-Website.git
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # Anonymous clone — the upstream repository is public.
+          git clone --bare "$UPSTREAM" upstream.git
+          cd upstream.git
+
+          echo "upstream main: $(git rev-parse --short main)"
+          echo "commits:       $(git rev-list --count main)"
+
+          # ⚠️ Push refs/heads/* explicitly, never --mirror.
+          #    --mirror also tries to push refs/pull/*, which GitHub refuses,
+          #    and the whole push fails partway through.
+          git push --force \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            "refs/heads/main:refs/heads/live"
+
+          echo "pushed upstream main -> live"
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### Mirror run"
+            echo ""
+            echo "- source: luxroboeducation/2027-ROBOFEST-ROK-Qualifying-Website (public)"
+            echo "- target: \`live\` branch of this repository"
+            echo "- \`main\` is untouched by design — it holds the departure snapshot"
+          } >> "$GITHUB_STEP_SUMMARY"
