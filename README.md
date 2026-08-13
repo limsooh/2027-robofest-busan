@@ -6,6 +6,9 @@
 > It is **not** an independent personal project, and the upstream repository is
 > the authoritative copy.
 >
+> **[`CASE-STUDY.md`](CASE-STUDY.md)** — what the project was, the constraints it
+> was built under, and the decisions that followed from them. Start there.
+>
 > See **[`CONTRIBUTORS.md`](CONTRIBUTORS.md)** for who did what. Every commit in
 > this repository was authored from a shared departmental account, so GitHub
 > attributes the work to that account rather than to the individuals who did it.
