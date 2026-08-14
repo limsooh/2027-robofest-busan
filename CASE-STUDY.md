@@ -24,7 +24,7 @@ constraint, not the feature list, drove every technical decision on the project.
 | Stack | Next.js (App Router), TypeScript, Tailwind, Vercel |
 | Output | 21 statically generated routes |
 | Runtime dependencies | 5 — Next, React, React-DOM, and two Vercel analytics packages |
-| Contribution | 137 of 156 commits |
+| Contribution | 147 of 178 commits, pinned at `0ce1a06` |
 
 ---
 
@@ -83,13 +83,13 @@ mode is "your change didn't appear," which is recoverable and obvious, instead o
 
 ### Wrote the handover as a deliverable, not an afterthought
 
-~4,100 lines of documentation, structured by who is reading and why:
+~4,600 lines of documentation, structured by who is reading and why:
 
 | document | lines | audience |
 | --- | --- | --- |
 | `docs/RUNBOOK.md` | 1,134 | non-technical operator, browser only, no terminal |
 | `docs/RUNBOOK-CLAUDE-CODE.md` | 881 | someone doing structural work with an AI assistant |
-| `docs/SESSION-LOG.md` | 1,917 | dated decision record, including reverted attempts |
+| `docs/SESSION-LOG.md` | 2,339 | dated decision record, including reverted attempts (continued by a colleague from 08-04) |
 | `CLAUDE.md` | 231 | the single authoritative rules file |
 
 Two things I would call out as deliberate:
@@ -126,7 +126,7 @@ catches the realistic failures, and I would make that call again under the same
 deadline — but I would add smoke tests over the built HTML if the project ran
 longer, checking that key routes render and critical strings are present.
 
-**One 2,700-line config file.** Keeping content in a single file made it
+**One 2,800-line config file.** Keeping content in a single file made it
 navigable for a non-developer, which was the point. It is still a large file, and
 splitting it per-page with a typed index would have kept that benefit while
 reducing the chance of an edit landing in the wrong section.
